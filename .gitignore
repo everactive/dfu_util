@@ -1,7 +1,6 @@
 Makefile
 */Makefile
 autom4te.cache/
-config.h
 configure
 m4/
 src/.deps/
