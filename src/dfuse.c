@@ -247,7 +247,8 @@ int dfuse_special_command(struct dfu_if *dif, unsigned int address,
 		/* wait while command is executed */
 		if (verbose)
 			printf("   Poll timeout %i ms\n", dst.bwPollTimeout);
-		milli_sleep(dst.bwPollTimeout);
+		//milli_sleep(dst.bwPollTimeout);
+		milli_sleep(50);
 		if (command == READ_UNPROTECT)
 			return ret;
 		/* Workaround for e.g. Black Magic Probe getting stuck */
@@ -286,7 +287,8 @@ int dfuse_dnload_chunk(struct dfu_if *dif, unsigned char *data, int size,
 			errx(EX_IOERR, "Error during download get_status");
 			return ret;
 		}
-		milli_sleep(dst.bwPollTimeout);
+		//milli_sleep(dst.bwPollTimeout);
+		milli_sleep(50);
 	} while (dst.bState != DFU_STATE_dfuDNLOAD_IDLE &&
 		 dst.bState != DFU_STATE_dfuERROR &&
 		 dst.bState != DFU_STATE_dfuMANIFEST &&
@@ -700,6 +702,8 @@ int dfuse_do_dnload(struct dfu_if *dif, int xfer_size, struct dfu_file *file,
 
 	if (dfuse_leave) {
 		dfuse_special_command(dif, dfuse_address, SET_ADDRESS);
+		dfuse_dnload_chunk(dif, NULL, 0, 2); /* Zero-size */
+	} else {
 		dfuse_dnload_chunk(dif, NULL, 0, 2); /* Zero-size */
 	}
 	return ret;
