@@ -6,7 +6,7 @@ else()
     set(USB_LIB "/lib/x86_64-linux-gnu")
 endif()
 
-project(dfu_util)
+project(dfu-util)
 
 add_definitions(-DHAVE_CONFIG_H)
 
@@ -31,12 +31,12 @@ link_directories(
         "${USB_LIB}"
 )
 
-add_executable(dfu_util ${DFU_FILES})
+add_executable(dfu-util ${DFU_FILES})
 
-target_link_libraries(dfu_util
+target_link_libraries(dfu-util
     usb-1.0
 )
 
-install(TARGETS dfu_util DESTINATION usr/bin/everactive )
+install(TARGETS dfu-util DESTINATION usr/bin/everactive )
 
 
